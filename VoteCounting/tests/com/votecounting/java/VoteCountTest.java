@@ -296,9 +296,9 @@ public class VoteCountTest {
 
 	}
 	
-	// Test 7=>VoteCount test_CandidateGroupleastVotes
+	// Test 7=>VoteCount test_candidateGroupleastVotes
 	@Test
-	public void test_CandidateGroupleastVotes_Null() {
+	public void test_candidateGroupleastVotes_Null() {
 
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
@@ -319,9 +319,9 @@ public class VoteCountTest {
 		assertNull("No least Candidadate =>", candidateGroupLeast);
 	}
 	
-	// Test 7=>VoteCount test_CandidateGroupleastVotes
+	// Test 7=>VoteCount test_candidateGroupleastVotes
 	@Test
-	public void test_CandidateGroupleastVotesNotNull() {
+	public void test_candidateGroupleastVotesNotNull() {
 
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
@@ -341,9 +341,9 @@ public class VoteCountTest {
 		candidateGroupLeast = voteCount.candidateLeastVotes();
 		assertNotNull("least Candidadate =>", candidateGroupLeast);
 	}
-	// Test 8=>VoteCount test_CandidateGroupleastVotes
+	// Test 8=>VoteCount test_candidateGroupleastVotes
 	@Test
-	public void test_CandidateGroupleastVotes() {
+	public void test_candidateGroupleastVotes() {
 
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));

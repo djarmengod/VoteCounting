@@ -185,6 +185,7 @@ public class VoteCount {
 			}
 			
 			CandidateGroup candidateLeastVotes = candidateLeastVotes();
+			
 			// Check for a tie if there is not candidateLeastVotes			
 			if (candidateLeastVotes == null) {
 				CandidateGroup candidateRandomWinner = candidateRandomWinner();

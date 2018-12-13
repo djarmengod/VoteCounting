@@ -50,14 +50,14 @@ public class CanidatesFileTest {
 
 	// Test 1=>readFile valid path
 	@Test
-	public void test_readFile_valid_Path() {
+	public void test_readFile_Valid_Path() {
 		candidatesFile.readFile(CandidatesFile.PATH);
 		assertFalse("read file with a valid path=>",candidatesFile.getCandidates().isEmpty());
 	}
 
 	// Test 2=>readFile invalid path
 	@Test
-	public void test_readfileInvalid_Path() {
+	public void test_readfile_Invalid_Path() {
 		candidatesFile.readFile("files/CandidatesFiles.tx");
 		assertTrue("read file with a valid path=>",candidatesFile.getCandidates().isEmpty());
 	}
