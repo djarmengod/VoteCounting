@@ -34,20 +34,20 @@ public class VoteCount {
 
 	public CandidateGroup candidateLeastVotes() {
 
-		CandidateGroup candidateGroupLeast = null;
-
+		CandidateGroup candidateGroupLeast = getCandidateGroup(getNonEliminatedCandidates().get(0));
+		int leastCounter=0;
 		for (Candidate candidate : getNonEliminatedCandidates()) {
 			CandidateGroup candidateGroup = getCandidateGroup(candidate);
-			if (candidateGroupLeast == null) {
+			if (candidateGroup.getNonExhaustedBallots() < candidateGroupLeast.getNonExhaustedBallots()) {
 				candidateGroupLeast = candidateGroup;
-
-			} else if (candidateGroup.getNonExhaustedBallots() < candidateGroupLeast.getNonExhaustedBallots()) {
-				candidateGroupLeast = candidateGroup;
+				leastCounter=1;
 			} else if (candidateGroup.getNonExhaustedBallots() == candidateGroupLeast.getNonExhaustedBallots()) {
-				candidateGroupLeast = null;
+				leastCounter+=1;
 			}
 		}
-
+		if (leastCounter==getNonEliminatedCandidates().size()) {
+			candidateGroupLeast=null;
+		}
 		return candidateGroupLeast;
 	}
 
@@ -141,10 +141,15 @@ public class VoteCount {
 		Iterator<BallotPaper> iterator = candidateGroupLeastVotes.getBallotPapers().iterator();
 		while (iterator.hasNext()) {
 			BallotPaper ballotPaper = (BallotPaper) iterator.next();
-			// Set Exhausted ballot when there are no more left active preferences
+			
+			//Exhaust Ballot or Reallocate
 			if (!ballotPaper.exhaustBallot(getNonEliminatedCandidates())) {
+				
+				//Add ballot to first next preference
 				Vote voteNextPreference = ballotPaper.getVoteFirstNextPreference(getNonEliminatedCandidates());
 				getCandidateGroup(voteNextPreference.getCandidate()).addBallotPaper(ballotPaper);
+				
+				//Remove Ballot from candidateGroupleastVotes
 				iterator.remove();
 				System.out.println(ballotPaper.getTeamMember() + " Ballot Moved => " + " from: "
 						+ candidateGroupLeastVotes.getCandidate().getName() + " to "

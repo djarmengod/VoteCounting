@@ -127,7 +127,8 @@ public class VoteCountTest {
 	// Test 3=>VoteCount allocateBallots
 	@Test
 	public void test_allocateBallots() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
@@ -156,13 +157,29 @@ public class VoteCountTest {
 	// Test 4=>VoteCount getExhaustedBallots
 	@Test
 	public void test_getExhaustedBallots() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
+		voteCount.addCandidateGroup(candidates.get(1));
+		voteCount.addCandidateGroup(candidates.get(2));
+		voteCount.addCandidateGroup(candidates.get(3));
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
-
+		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(1));
+		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
+		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(2));
+		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(3));
+		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(7));
+		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(4));
+		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(5));
+		
+		//Set 3 Exhausted Ballots
 		ballotPapers.get(0).setExhaustedBallot(true);
+		ballotPapers.get(1).setExhaustedBallot(true);
+		ballotPapers.get(2).setExhaustedBallot(true);
 
-		assertEquals("Total Votes=>", voteCount.getTotalExhaustedBallots(), 1);
+		assertEquals("Total Votes=>", voteCount.getTotalExhaustedBallots(), 3);
 
 	}
 
@@ -170,22 +187,42 @@ public class VoteCountTest {
 	@Test
 	public void test_getNonExhaustedBallots() {
 
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
+		voteCount.addCandidateGroup(candidates.get(1));
+		voteCount.addCandidateGroup(candidates.get(2));
+		voteCount.addCandidateGroup(candidates.get(3));
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
+		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(1));
+		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
+		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(2));
+		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(3));
+		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(7));
+		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(4));
+		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(5));
+		
+		//Set 3 Exhausted Ballots
+		ballotPapers.get(0).setExhaustedBallot(true);
+		ballotPapers.get(1).setExhaustedBallot(true);
+		ballotPapers.get(2).setExhaustedBallot(true);
 
-		assertEquals("Total Votes=>", voteCount.getTotalNonExhaustedBallots(), 1);
+		assertEquals("Total Votes=>", voteCount.getTotalNonExhaustedBallots(), 5);
 
 	}
 
 	// Test 5=>VoteCount calculateQuota
 	@Test
 	public void test_calculateQuota() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
 
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
@@ -203,13 +240,15 @@ public class VoteCountTest {
 
 	// Test 6=>VoteCount candidateGroupWinner only 1
 	@Test
-	public void test_candidateWinner_NotNull() {
-
+	public void test_candidateWinnerNotNull() {
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(6));
@@ -229,12 +268,14 @@ public class VoteCountTest {
 	// Test 6=>VoteCount candidateGroupWinner only 1
 	@Test
 	public void test_candidateWinnerNullMoreThan1() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
@@ -253,12 +294,14 @@ public class VoteCountTest {
 	// Test 7=>VoteCount candidateGroupWinner only 1
 	@Test
 	public void test_candidateWinnerNullNoWinner() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
@@ -278,11 +321,13 @@ public class VoteCountTest {
 	@Test
 	public void test_candidateRandomWinner_NotNull() {
 
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
@@ -298,36 +343,45 @@ public class VoteCountTest {
 	
 	// Test 7=>VoteCount test_candidateGroupleastVotes
 	@Test
-	public void test_candidateGroupleastVotes_Null() {
-
+	public void test_candidateGroupleastVotesNull() {
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(1));
+		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
+		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(2));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(2));
 		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(3));
 		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(7));
 		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(4));
 		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(5));
-
+		
+		//Eliminate the one with more votes so there is a triple tie
+		voteCount.getCandidateGroups().get(1).setEliminated(true);
+		
 		CandidateGroup candidateGroupLeast;
 		candidateGroupLeast = voteCount.candidateLeastVotes();
 		assertNull("No least Candidadate =>", candidateGroupLeast);
 	}
 	
-	// Test 7=>VoteCount test_candidateGroupleastVotes
+	// Test 8=>VoteCount test_candidateGroupleastVotes
 	@Test
 	public void test_candidateGroupleastVotesNotNull() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
 		voteCount.addCandidateGroup(candidates.get(2));
 		voteCount.addCandidateGroup(candidates.get(3));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
@@ -341,37 +395,16 @@ public class VoteCountTest {
 		candidateGroupLeast = voteCount.candidateLeastVotes();
 		assertNotNull("least Candidadate =>", candidateGroupLeast);
 	}
-	// Test 8=>VoteCount test_candidateGroupleastVotes
-	@Test
-	public void test_candidateGroupleastVotes() {
-
-		voteCount.addCandidateGroup(candidates.get(0));
-		voteCount.addCandidateGroup(candidates.get(1));
-		voteCount.addCandidateGroup(candidates.get(2));
-		voteCount.addCandidateGroup(candidates.get(3));
-
-		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
-		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(1));
-		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));
-		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(2));
-		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(3));
-		voteCount.getCandidateGroups().get(2).addBallotPaper(ballotPapers.get(7));
-		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(4));
-		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(5));
-
-		CandidateGroup candidateGroupLeast;
-		candidateGroupLeast = voteCount.candidateLeastVotes();
-		assertEquals("Least Candidate Group is Winery Tour=>", voteCount.getCandidateGroups().get(0),
-				candidateGroupLeast);
-	}
 
 	// Test 9=>VoteCount reAllocateBallots
 	@Test
 	public void test_reAllocateBallots() {
-
+		
+		//Create CandidateGroups
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
-
+		
+		//Allocate Ballots
 		voteCount.getCandidateGroups().get(0).addBallotPaper(ballotPapers.get(0));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(1));
 		voteCount.getCandidateGroups().get(1).addBallotPaper(ballotPapers.get(6));

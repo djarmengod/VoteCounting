@@ -32,12 +32,11 @@ public class BallotPaper {
 		this.exhaustedBallot = exhaustedBallot;
 	}
 	
-	public Vote getVoteFirstNextPreference(List<Candidate> candidates) {
+	public Vote getVoteFirstNextPreference(List<Candidate> nonEliminatedCandidates) {
 		
 		for (Vote vote : votes.stream().sorted(Comparator.comparing(Vote::getOrderPreference))
 				.collect(Collectors.toList())) {
-			if (candidates.contains(vote.getCandidate())) {
-				// Allocate it to the first next preference
+			if (nonEliminatedCandidates.contains(vote.getCandidate())) {
 				return vote;
 			}			
 		}
@@ -45,11 +44,10 @@ public class BallotPaper {
 
 	}
 	
-	public boolean exhaustBallot(List<Candidate> candidates) {
+	public boolean exhaustBallot(List<Candidate> nonEliminatedCandidates) {
 		
 		for (Vote vote : votes) {
-			if (candidates.contains(vote.getCandidate())) {
-				// Allocate it to the first next preference
+			if (nonEliminatedCandidates.contains(vote.getCandidate())) {
 				return false;
 			}			
 		}
