@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -446,6 +447,8 @@ public class VoteCountTest {
 		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(5));
 
 		voteCount.start();
+		
+		assertEquals("Winner B. Ten pin Bowling =>", voteCount.candidateWinner(4).getCandidate(),candidates.get(1));
 
 	}
 	
@@ -453,6 +456,7 @@ public class VoteCountTest {
 	@Test
 	public void test_start_Tie() {
 
+		
 		// Create CandidateGroup for each candidate
 		voteCount.addCandidateGroup(candidates.get(0));
 		voteCount.addCandidateGroup(candidates.get(1));
@@ -470,7 +474,57 @@ public class VoteCountTest {
 		voteCount.getCandidateGroups().get(3).addBallotPaper(ballotPapers.get(5));
 	
 		voteCount.start();
+		
+		assertNull("Tie No Winner =>", voteCount.candidateWinner(4));
+		assertNotNull("Tie Random Winner =>", voteCount.candidateRandomWinner());
 
 	}
 
+	// Test 12=>VoteCount start Random
+	@Test
+	public void test_start_random() {
+		
+		candidates = new ArrayList<>();
+		ballotPapers = new ArrayList<>();
+		votes = new ArrayList<>();
+		
+		int numCandidates = 10;
+		int numBallots=10;
+		
+		for (int i=1;i<=numCandidates;i++) {
+			candidates.add(new Candidate((char) (i + 64), "Candidate "+i));
+		}
+		
+		for (Candidate candidate : candidates) {
+			voteCount.addCandidateGroup(candidate);
+		}
+				
+		Random r = new Random();			
+		int randomNumber;
+			
+			for (int i=1;i<numBallots;i++) {
+				
+				votes = new ArrayList<>();	
+				/*for (CandidateGroup candidateGroups : voteCount.getCandidateGroups()) {
+					votes.add(new Vote(candidateGroups.getCandidate(), r.nextInt(numCandidates-1)+1));
+				}*/
+				for (int y=1;y<=r.nextInt(numCandidates);y++) {
+					votes.add(new Vote(candidates.get(r.nextInt(numCandidates)), r.nextInt(numCandidates-1)+1));
+				}
+
+				ballotPapers.add(new BallotPaper("Team Member: "+i, votes));
+				//ballotPapers2.forEach(c->System.out.println(c.getVotes().toString()));
+				
+			}	
+	
+			for (int i=0;i<numBallots;i++) {	
+				randomNumber=r.nextInt(ballotPapers.size()-1);
+				voteCount.getCandidateGroups().get(r.nextInt(numCandidates)).addBallotPaper(ballotPapers.get(randomNumber));	
+				//System.out.println(ballotPapers2.get(randomNumber).getVotes().toString());
+			}
+		
+		voteCount.start();
+
+	}
+	
 }
