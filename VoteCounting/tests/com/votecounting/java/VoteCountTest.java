@@ -488,8 +488,8 @@ public class VoteCountTest {
 		ballotPapers = new ArrayList<>();
 		votes = new ArrayList<>();
 		
-		int numCandidates = 10;
-		int numBallots=10;
+		int numCandidates =5;
+		int numBallots=50;
 		
 		for (int i=1;i<=numCandidates;i++) {
 			candidates.add(new Candidate((char) (i + 64), "Candidate "+i));
@@ -502,26 +502,32 @@ public class VoteCountTest {
 		Random r = new Random();			
 		int randomNumber;
 			
-			for (int i=1;i<numBallots;i++) {
-				
+			for (int i=0;i<numBallots;i++) {			
 				votes = new ArrayList<>();	
-				/*for (CandidateGroup candidateGroups : voteCount.getCandidateGroups()) {
-					votes.add(new Vote(candidateGroups.getCandidate(), r.nextInt(numCandidates-1)+1));
-				}*/
-				for (int y=1;y<=r.nextInt(numCandidates);y++) {
-					votes.add(new Vote(candidates.get(r.nextInt(numCandidates)), r.nextInt(numCandidates-1)+1));
+				randomNumber=r.nextInt(numCandidates);
+				Vote vote;
+				boolean exists;
+				
+				for (int y=1;y<=randomNumber+1;y++) {	
+					vote=new Vote(candidates.get(r.nextInt(randomNumber+1)), y);
+					exists=false;
+					for (Vote vote2 : votes) {
+						if (vote2.getCandidate()==vote.getCandidate()) {
+							exists=true;
+							break;
+						}					
+					}
+					if (!exists) {
+						votes.add(vote);
+					}							
 				}
 
-				ballotPapers.add(new BallotPaper("Team Member: "+i, votes));
-				//ballotPapers2.forEach(c->System.out.println(c.getVotes().toString()));
-				
+				ballotPapers.add(new BallotPaper("Team Member: "+i, votes));				
 			}	
-	
-			for (int i=0;i<numBallots;i++) {	
-				randomNumber=r.nextInt(ballotPapers.size()-1);
-				voteCount.getCandidateGroups().get(r.nextInt(numCandidates)).addBallotPaper(ballotPapers.get(randomNumber));	
-				//System.out.println(ballotPapers2.get(randomNumber).getVotes().toString());
-			}
+			ballotPapers.forEach(c->System.out.println(c.getVotes().toString()));
+
+			voteCount.allocateBallots(candidates,ballotPapers);
+
 		
 		voteCount.start();
 
